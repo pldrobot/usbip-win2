@@ -32,7 +32,7 @@ public:
         constexpr generic_handle() NOEXCEPT = default;
         constexpr explicit generic_handle(type h) NOEXCEPT : m_handle(h) {}
 
-        ~generic_handle() 
+        ~generic_handle()
         {
                 if (*this) {
                         close_handle(m_handle, tag_type());
@@ -42,7 +42,7 @@ public:
         generic_handle(const generic_handle&) = delete;
         generic_handle& operator=(const generic_handle&) = delete;
 
-        generic_handle(generic_handle&& h) NOEXCEPT : m_handle(h.release()) {}
+        constexpr generic_handle(generic_handle&& h) NOEXCEPT : m_handle(h.release()) {}
 
         auto& operator=(generic_handle&& h) NOEXCEPT
         {
@@ -59,7 +59,7 @@ public:
         constexpr auto get() const NOEXCEPT { return static_cast<T>(m_handle); }
 
         template<typename T = type>
-        auto release() NOEXCEPT
+        constexpr auto release() NOEXCEPT
         {
                 auto h = static_cast<T>(m_handle);
                 m_handle = None;
@@ -76,7 +76,7 @@ public:
 
         void close() NOEXCEPT { reset(); }
 
-        void swap(generic_handle &h) NOEXCEPT
+        constexpr void swap(generic_handle &h) NOEXCEPT
         {
                 auto tmp = h.m_handle;
                 h.m_handle = m_handle;
@@ -89,8 +89,8 @@ private:
 
 
 template<typename Handle, typename Tag, auto NoneValue>
-inline void swap(generic_handle<Handle, Tag, NoneValue> &a, 
-                 generic_handle<Handle, Tag, NoneValue> &b) NOEXCEPT
+constexpr void swap(generic_handle<Handle, Tag, NoneValue> &a, 
+                    generic_handle<Handle, Tag, NoneValue> &b) NOEXCEPT
 {
         a.swap(b);
 }

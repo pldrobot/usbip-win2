@@ -46,7 +46,7 @@ auto free(_Inout_ filter_ext &fltr, _In_ IRP *irp)
 		unique_ptr b(urb->UrbControlTransferEx.TransferBuffer);
 	}
 
-	IoFreeIrp(irp);
+        libdrv::irp_ptr{irp};
 	return tag;
 }
 
