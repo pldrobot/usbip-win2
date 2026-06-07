@@ -171,7 +171,7 @@ PAGED auto alloc_devices(_Inout_ vhci_ctx &vhci)
 
         vhci.usb2_ports = usb2_ports;
         vhci.devices_cnt = n;
-        vhci.devices = ptr.release<UDECXUSBDEVICE>();
+        vhci.devices = ptr.release<UDECXUSBDEVICE*>();
 
         Trace(TRACE_LEVEL_INFORMATION, "usb2 ports %d, UDECXUSBDEVICE[%d]", vhci.usb2_ports, vhci.devices_cnt);
         return STATUS_SUCCESS;

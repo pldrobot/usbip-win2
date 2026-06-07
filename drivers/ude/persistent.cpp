@@ -638,7 +638,7 @@ PAGED NTSTATUS usbip::hash_location(_Inout_ ULONG &hash, _In_ const device_attri
 
         UNICODE_STRING str { 
                 .MaximumLength = cb, 
-                .Buffer = buf.get<wchar_t>()
+                .Buffer = buf.get<wchar_t*>()
         };
 
         if (auto err = RtlUnicodeStringPrintf(&str, L"%wZ,%wZ,%wZ", &r.node_name, &r.service_name, &r.busid)) {
